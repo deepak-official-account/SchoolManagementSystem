@@ -1,4 +1,4 @@
-
+using SchoolManagementSystem.API.Repository;
 namespace SchoolManagementSystem.API
 {
     public class Program
@@ -13,6 +13,11 @@ namespace SchoolManagementSystem.API
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+
+              //Dependency Injection
+              builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+
 
             var app = builder.Build();
 
