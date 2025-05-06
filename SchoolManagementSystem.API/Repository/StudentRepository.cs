@@ -29,7 +29,7 @@ namespace SchoolManagementSystem.API.Repository
                 parameters.Add("@PhoneNumber", student.PhoneNumber);
 
 
-                int rowsAffected = await connection.ExecuteAsync("dbo.AddStudent", param: parameters, commandType: CommandType.StoredProcedure);
+                int rowsAffected = await connection.ExecuteAsync(sql:"dbo.AddStudent", param: parameters, commandType: CommandType.StoredProcedure);
                 if (rowsAffected > 0)
                 {
                     return new ResponseDto
@@ -56,16 +56,14 @@ namespace SchoolManagementSystem.API.Repository
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                var parameters = new DynamicParameters();
-            
-             
-                
-                  
+                var parameters = new DynamicParameters();                  
                     parameters.Add("@RollNo", rollNo);
-                parameters.Add("@IsDeleted ", dbType: DbType.Boolean, direction: ParameterDirection.Output);
+                parameters.Add("@IsDeleted", dbType: DbType.Boolean, direction: ParameterDirection.Output);
 
-                    int rowsAffected = await connection.ExecuteAsync(sql: "dbo.DeleteStudent", param: parameters, commandType: CommandType.StoredProcedure);
-                    if (rowsAffected > 0)
+                     await connection.ExecuteAsync(sql: "dbo.DeleteStudent", param: parameters, commandType: CommandType.StoredProcedure);
+                bool isDeleted = parameters.Get<bool>("@IsDeleted");
+
+                    if (isDeleted)
                     {
                         return new ResponseDto { message = "Student Deleted Successfully", IsSuccess = true };
                     }
@@ -105,20 +103,19 @@ namespace SchoolManagementSystem.API.Repository
             {
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
-               
-                   
-
-                  
+             
                     var updateParams = new DynamicParameters();
-                    updateParams.Add("@RollNo", student.RollNo);
+                    updateParams.Add("@RollNo", rollNo);
                     updateParams.Add("@Name", student.Name);
                     updateParams.Add("@Surname", student.Surname);
                     updateParams.Add("@Age", student.Age);
                     updateParams.Add("@PhoneNumber", student.PhoneNumber);
+                    updateParams.Add("@IsUpdated",dbType:DbType.Boolean,direction:ParameterDirection.Output);
 
-                    int rowsAffected = await connection.ExecuteAsync(sql:"dbo.UpdanteStudent",param: updateParams, commandType: CommandType.StoredProcedure);
+                     await connection.ExecuteAsync(sql:"dbo.UpdateStudent",param: updateParams, commandType: CommandType.StoredProcedure);
+                    bool isUpdated = updateParams.Get<bool>("@IsUpdated");
 
-                    if (rowsAffected > 0)
+                    if (isUpdated)
                     {
                         return new ResponseDto
                         {
