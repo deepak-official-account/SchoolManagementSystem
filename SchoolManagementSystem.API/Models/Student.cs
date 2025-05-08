@@ -19,5 +19,19 @@ namespace SchoolManagementSystem.API.Models
         [StringLength(10)]
         public string PhoneNumber { get; set; }
 
+        public Student()
+        {
+
+        }
+
+        public Student(int rollNo, string name, string surname, int age, string phoneNumber)
+        {
+            RollNo = rollNo;
+            Name = name;
+            Surname = surname;
+            Age = age;
+            PhoneNumber = phoneNumber;
+        }
+
     }
 }

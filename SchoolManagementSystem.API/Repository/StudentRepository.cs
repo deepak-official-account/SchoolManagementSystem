@@ -88,15 +88,6 @@ namespace SchoolManagementSystem.API.Repository
             }
         }
 
-
-        //public Task<Student> GetStudentByIdAsync(int id)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-
-
-   //Not working Properly 
         public async Task<ResponseDto> UpdateStudentAsync(Student student,int rollNo)
         {
             try
