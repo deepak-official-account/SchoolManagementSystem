@@ -9,11 +9,19 @@ namespace SchoolManagementSystem.API.Controllers
     [ApiController]
     public class StudentApiController : ControllerBase
     {
+
+        #region Private Variables
         private readonly IStudentRepository _studentRepository;
+        #endregion
+
+        #region Constructor
         public StudentApiController(IStudentRepository studentRepository)
         {
             this._studentRepository = studentRepository;
         }
+        #endregion
+
+        #region Controller Methods
 
         [HttpPost]
         [Route("add-student")]
@@ -77,4 +85,5 @@ namespace SchoolManagementSystem.API.Controllers
         }
         // Other methods remain unchanged
     }
+    #endregion
 }

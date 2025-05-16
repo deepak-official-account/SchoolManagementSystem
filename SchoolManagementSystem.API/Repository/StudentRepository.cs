@@ -1,20 +1,27 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
 using SchoolManagementSystem.API.Models;
-using System.ComponentModel.DataAnnotations;
 using System.Data;
 
 namespace SchoolManagementSystem.API.Repository
 {
     public class StudentRepository : IStudentRepository
     {
+        #region Private Members
         private readonly IConfiguration _configuration;
         private readonly string _connectionString;
+        #endregion
+
+        #region Construtor
         public StudentRepository(IConfiguration configuration)
         {
             this._configuration = configuration;
             this._connectionString = _configuration.GetConnectionString("DefaultConnection");
         }
+
+        #endregion
+
+        #region Service Methods
         public async Task<ResponseDto> AddStudentAsync(Student student)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -134,6 +141,6 @@ namespace SchoolManagementSystem.API.Repository
                 };
             }
         }
-
+        #endregion
     }
 }
